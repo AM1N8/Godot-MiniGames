@@ -1,0 +1,146 @@
+[gd_scene load_steps=20 format=3 uid="uid://dar68a1fy40fh"]
+
+[ext_resource type="Script" path="res://spaceship.gd" id="1_iwp32"]
+[ext_resource type="Texture2D" uid="uid://bfps56so5mjfy" path="res://ASSETS/Foozle_2DS0011_Void_MainShip/Main Ship/Main Ship - Bases/PNGs/Main Ship - Base - Full health.png" id="2_0yt5x"]
+[ext_resource type="Texture2D" uid="uid://dfn04hsanfn3p" path="res://ASSETS/Foozle_2DS0011_Void_MainShip/Main Ship/Main Ship - Bases/PNGs/Main Ship - Base - Slight damage.png" id="3_51tdk"]
+[ext_resource type="Texture2D" uid="uid://ci7qjde4k5eb5" path="res://ASSETS/Foozle_2DS0011_Void_MainShip/Main Ship/Main Ship - Bases/PNGs/Main Ship - Base - Damaged.png" id="4_w5y3v"]
+[ext_resource type="Texture2D" uid="uid://cgr4k7x6ljjeq" path="res://ASSETS/Foozle_2DS0011_Void_MainShip/Main Ship/Main Ship - Bases/PNGs/Main Ship - Base - Very damaged.png" id="5_evxhk"]
+[ext_resource type="Texture2D" uid="uid://286wfl8a3xkh" path="res://ASSETS/Foozle_2DS0011_Void_MainShip/Main Ship/Main Ship - Engine Effects/PNGs/Main Ship - Engines - Supercharged Engine - Spritesheet.png" id="6_074ij"]
+[ext_resource type="Script" path="res://components/spawnpoint.gd" id="7_sufsy"]
+[ext_resource type="PackedScene" uid="uid://c1t35j6d3cjy4" path="res://weapons/cannon/cannon_bullet.tscn" id="8_s6mbx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q0dgk"]
+radius = 8.0
+height = 24.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_skgv1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0yt5x")
+}],
+"loop": true,
+"name": &"base",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_51tdk")
+}],
+"loop": true,
+"name": &"damaged1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_w5y3v")
+}],
+"loop": true,
+"name": &"damaged2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_evxhk")
+}],
+"loop": true,
+"name": &"damaged3",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugfae"]
+atlas = ExtResource("6_074ij")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n841x"]
+atlas = ExtResource("6_074ij")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whoo6"]
+atlas = ExtResource("6_074ij")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ueli"]
+atlas = ExtResource("6_074ij")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrwll"]
+atlas = ExtResource("6_074ij")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rs5e1"]
+atlas = ExtResource("6_074ij")
+region = Rect2(48, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3tat"]
+atlas = ExtResource("6_074ij")
+region = Rect2(96, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_meulj"]
+atlas = ExtResource("6_074ij")
+region = Rect2(144, 48, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t0g06"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugfae")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n841x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whoo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ueli")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrwll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rs5e1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3tat")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_meulj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="spaceship" type="CharacterBody2D"]
+script = ExtResource("1_iwp32")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_q0dgk")
+
+[node name="ship" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_skgv1")
+animation = &"base"
+
+[node name="engine" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.606723, 0.606723)
+sprite_frames = SubResource("SpriteFrames_t0g06")
+frame_progress = 0.657492
+
+[node name="weapon1" type="Marker2D" parent="."]
+position = Vector2(8, -5)
+
+[node name="back_weapon" type="Marker2D" parent="."]
+
+[node name="weapon2" type="Marker2D" parent="."]
+position = Vector2(-9, -5)
+
+[node name="firerate" type="Timer" parent="."]
+autostart = true
+
+[node name="SpawnPoint" type="Node2D" parent="."]
+script = ExtResource("7_sufsy")
+scene = ExtResource("8_s6mbx")
+
+[connection signal="timeout" from="firerate" to="." method="_on_firerate_timeout"]

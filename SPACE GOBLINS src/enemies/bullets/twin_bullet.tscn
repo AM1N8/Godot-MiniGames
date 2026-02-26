@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://b255wr4q3bqvv"]
+
+[ext_resource type="Texture2D" uid="uid://c7jo4yy3tg38d" path="res://ASSETS/bullet.png" id="1_lnspv"]
+[ext_resource type="Script" path="res://enemies/bullets/twin_bullet.gd" id="1_wg4tx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bm3jw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4lo2a"]
+
+[node name="twin_bullet" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_wg4tx")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Bullet" type="Sprite2D" parent="Area2D"]
+position = Vector2(-16, 0)
+texture = ExtResource("1_lnspv")
+
+[node name="Bullet2" type="Sprite2D" parent="Area2D"]
+position = Vector2(16, 0)
+texture = ExtResource("1_lnspv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-16, 0)
+shape = SubResource("CircleShape2D_bm3jw")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(16, 0)
+shape = SubResource("CircleShape2D_4lo2a")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

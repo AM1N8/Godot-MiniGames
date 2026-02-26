@@ -1,0 +1,117 @@
+[gd_scene load_steps=12 format=3 uid="uid://chme5vxpkdvbf"]
+
+[ext_resource type="Script" path="res://UI/ui_ship.gd" id="1_62v23"]
+[ext_resource type="Texture2D" uid="uid://dyr0c4nudykfm" path="res://ASSETS/back.png" id="2_h3awd"]
+[ext_resource type="Texture2D" uid="uid://cuirchr4uytgs" path="res://ASSETS/bar.png" id="3_1i6tm"]
+[ext_resource type="Texture2D" uid="uid://bhjcdupy68ka" path="res://ASSETS/back2.png" id="4_jbqx8"]
+[ext_resource type="Texture2D" uid="uid://bxrsutfhtscdd" path="res://ASSETS/bar2.png" id="5_0v75y"]
+[ext_resource type="FontFile" uid="uid://0r8p6xawbtx6" path="res://ASSETS/FFFFORWA.TTF" id="6_w6okt"]
+
+[sub_resource type="Animation" id="Animation_l5l44"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureProgressBar:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.5, 2.5)]
+}
+
+[sub_resource type="Animation" id="Animation_rywto"]
+resource_name = "hit"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureProgressBar:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.5, 2.5), Vector2(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_i7tni"]
+resource_name = "progress"
+length = 10.0
+
+[sub_resource type="Animation" id="Animation_38a4t"]
+resource_name = "wave"
+length = 5.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aacs2"]
+_data = {
+"RESET": SubResource("Animation_l5l44"),
+"hit": SubResource("Animation_rywto"),
+"progress": SubResource("Animation_i7tni"),
+"wave": SubResource("Animation_38a4t")
+}
+
+[node name="UI_ship" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_62v23")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_left = 112.0
+offset_top = 600.0
+offset_right = 176.0
+offset_bottom = 664.0
+rotation = 3.14159
+scale = Vector2(2.5, 2.5)
+max_value = 10.0
+value = 5.0
+fill_mode = 2
+texture_under = ExtResource("2_h3awd")
+texture_progress = ExtResource("3_1i6tm")
+
+[node name="stamina" type="TextureProgressBar" parent="."]
+offset_left = 24.0
+offset_top = 472.0
+offset_right = 88.0
+offset_bottom = 536.0
+scale = Vector2(2, 2)
+step = 0.5
+value = 100.0
+fill_mode = 3
+texture_under = ExtResource("4_jbqx8")
+texture_progress = ExtResource("5_0v75y")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_aacs2")
+}
+
+[node name="score" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 616.0
+offset_right = 80.0
+offset_bottom = 639.0
+theme_override_fonts/font = ExtResource("6_w6okt")
+text = "0
+"
+
+[node name="WAVE" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0.454902)
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 82.0005
+offset_bottom = 47.0
+scale = Vector2(1.60044, 1.60044)
+theme_override_fonts/font = ExtResource("6_w6okt")
+text = "WAVE"
+
+[node name="nbr" type="Label" parent="WAVE"]
+layout_mode = 0
+offset_left = 62.0
+offset_right = 102.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("6_w6okt")
+text = "1"

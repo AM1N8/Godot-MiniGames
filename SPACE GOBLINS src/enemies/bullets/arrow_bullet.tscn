@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://bqjysgy8fhai6"]
+
+[ext_resource type="Texture2D" uid="uid://bfsr6fes06xlv" path="res://ASSETS/Foozle_2DS0011_Void_MainShip/Main ship weapons/PNGs/Main ship weapon - Projectile - Rocket.png" id="1_gb7e4"]
+[ext_resource type="Script" path="res://enemies/bullets/arrow_bullet.gd" id="1_vxvnb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31dbn"]
+atlas = ExtResource("1_gb7e4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_811ki"]
+atlas = ExtResource("1_gb7e4")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_51iq4"]
+atlas = ExtResource("1_gb7e4")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p57hx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31dbn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_811ki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_51iq4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_avn56"]
+radius = 0.747727
+
+[node name="arrow_bullet" type="Node2D"]
+rotation = 1.5708
+scale = Vector2(3, 3)
+script = ExtResource("1_vxvnb")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_p57hx")
+frame_progress = 0.530767
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(4.01216, 0.376846)
+shape = SubResource("CapsuleShape2D_avn56")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

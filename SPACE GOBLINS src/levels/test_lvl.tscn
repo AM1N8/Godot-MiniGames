@@ -1,0 +1,102 @@
+[gd_scene load_steps=12 format=3 uid="uid://cam13xll57rgr"]
+
+[ext_resource type="Script" path="res://levels/test_lvl.gd" id="1_kus5c"]
+[ext_resource type="Shader" path="res://levels/stars.gdshader" id="1_pf048"]
+[ext_resource type="PackedScene" uid="uid://dar68a1fy40fh" path="res://spaceship/spaceship.tscn" id="1_ul1d2"]
+[ext_resource type="PackedScene" uid="uid://chme5vxpkdvbf" path="res://UI/ui_ship.tscn" id="2_lod6l"]
+[ext_resource type="PackedScene" uid="uid://2mvswxtbug73" path="res://UI/crt_shader.tscn" id="4_8ppqs"]
+[ext_resource type="Script" path="res://levels/Camera2D.gd" id="5_x8evj"]
+[ext_resource type="PackedScene" uid="uid://bgam6qvlm8hcy" path="res://items/arrows_gun/item_arrows.tscn" id="7_h6p0c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3svnw"]
+shader = ExtResource("1_pf048")
+shader_parameter/dimensions = Vector2(1024, 600)
+shader_parameter/small_stars = 50.0
+shader_parameter/small_stars_far_size = 0.5
+shader_parameter/small_stars_near_size = 0.5
+shader_parameter/large_stars = 8.0
+shader_parameter/large_stars_far_size = 0.5
+shader_parameter/large_stars_near_size = 0.5
+shader_parameter/far_stars_color = Color(0.5, 0, 1, 1)
+shader_parameter/near_stars_color = Color(1, 1, 1, 1)
+shader_parameter/base_scroll_speed = 0.1
+shader_parameter/additional_scroll_speed = 0.05
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qj448"]
+size = Vector2(1152, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vgp15"]
+size = Vector2(64, 648)
+
+[sub_resource type="Curve2D" id="Curve2D_d1vp3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1408, 64, 0, 0, 0, 0, 1408, 576)
+}
+point_count = 2
+
+[node name="test_lvl" type="Node2D"]
+script = ExtResource("1_kus5c")
+
+[node name="UI_ship" parent="." instance=ExtResource("2_lod6l")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_3svnw")
+offset_left = -40.0
+offset_top = -32.0
+offset_right = 1200.0
+offset_bottom = 704.0
+color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+
+[node name="spaceship" parent="." instance=ExtResource("1_ul1d2")]
+position = Vector2(72, 328)
+rotation = 1.5708
+scale = Vector2(3, 3)
+
+[node name="bounds" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="up" type="CollisionShape2D" parent="bounds"]
+position = Vector2(576, -56)
+shape = SubResource("RectangleShape2D_qj448")
+
+[node name="down" type="CollisionShape2D" parent="bounds"]
+position = Vector2(576, 704)
+shape = SubResource("RectangleShape2D_qj448")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bounds"]
+position = Vector2(-32, 324)
+shape = SubResource("RectangleShape2D_vgp15")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="bounds"]
+position = Vector2(1184, 328)
+shape = SubResource("RectangleShape2D_vgp15")
+
+[node name="spawnline" type="Path2D" parent="."]
+curve = SubResource("Curve2D_d1vp3")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="spawnline"]
+position = Vector2(1408, 114.736)
+rotation = 1.5708
+progress = 50.7392
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="crt_shader" parent="." instance=ExtResource("4_8ppqs")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 328)
+script = ExtResource("5_x8evj")
+
+[node name="waves" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[node name="item_arrows" parent="." instance=ExtResource("7_h6p0c")]
+position = Vector2(1328, 224)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="waves" to="." method="_on_waves_timeout"]

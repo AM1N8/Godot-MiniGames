@@ -1,0 +1,222 @@
+[gd_scene load_steps=23 format=3 uid="uid://dar68a1fy40fh"]
+
+[ext_resource type="Script" path="res://spaceship/spaceship.gd" id="1_wahr4"]
+[ext_resource type="Texture2D" uid="uid://bfps56so5mjfy" path="res://ASSETS/Foozle_2DS0011_Void_MainShip/Main Ship/Main Ship - Bases/PNGs/Main Ship - Base - Full health.png" id="2_0yt5x"]
+[ext_resource type="Texture2D" uid="uid://dfn04hsanfn3p" path="res://ASSETS/Foozle_2DS0011_Void_MainShip/Main Ship/Main Ship - Bases/PNGs/Main Ship - Base - Slight damage.png" id="3_51tdk"]
+[ext_resource type="Texture2D" uid="uid://ci7qjde4k5eb5" path="res://ASSETS/Foozle_2DS0011_Void_MainShip/Main Ship/Main Ship - Bases/PNGs/Main Ship - Base - Damaged.png" id="4_w5y3v"]
+[ext_resource type="Texture2D" uid="uid://cgr4k7x6ljjeq" path="res://ASSETS/Foozle_2DS0011_Void_MainShip/Main Ship/Main Ship - Bases/PNGs/Main Ship - Base - Very damaged.png" id="5_evxhk"]
+[ext_resource type="Texture2D" uid="uid://286wfl8a3xkh" path="res://ASSETS/Foozle_2DS0011_Void_MainShip/Main Ship/Main Ship - Engine Effects/PNGs/Main Ship - Engines - Supercharged Engine - Spritesheet.png" id="6_074ij"]
+[ext_resource type="Texture2D" uid="uid://cb8ufs8maxln7" path="res://ASSETS/2d_lights_and_shadows_neutral_point_light.webp" id="7_m8108"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q0dgk"]
+radius = 8.0
+height = 24.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_skgv1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0yt5x")
+}],
+"loop": true,
+"name": &"base",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_51tdk")
+}],
+"loop": true,
+"name": &"damaged1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_w5y3v")
+}],
+"loop": true,
+"name": &"damaged2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_evxhk")
+}],
+"loop": true,
+"name": &"damaged3",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugfae"]
+atlas = ExtResource("6_074ij")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n841x"]
+atlas = ExtResource("6_074ij")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whoo6"]
+atlas = ExtResource("6_074ij")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ueli"]
+atlas = ExtResource("6_074ij")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrwll"]
+atlas = ExtResource("6_074ij")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rs5e1"]
+atlas = ExtResource("6_074ij")
+region = Rect2(48, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3tat"]
+atlas = ExtResource("6_074ij")
+region = Rect2(96, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_meulj"]
+atlas = ExtResource("6_074ij")
+region = Rect2(144, 48, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t0g06"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugfae")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n841x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whoo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ueli")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrwll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rs5e1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3tat")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_meulj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_ay6r6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_f3s7b"]
+resource_name = "exhausted"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mue3r"]
+resource_name = "hit"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rgdfx"]
+_data = {
+"RESET": SubResource("Animation_ay6r6"),
+"exhausted": SubResource("Animation_f3s7b"),
+"hit": SubResource("Animation_mue3r")
+}
+
+[node name="spaceship" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_wahr4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_q0dgk")
+
+[node name="ship" type="AnimatedSprite2D" parent="."]
+z_index = 21
+sprite_frames = SubResource("SpriteFrames_skgv1")
+animation = &"base"
+
+[node name="engine" type="AnimatedSprite2D" parent="."]
+z_index = 20
+scale = Vector2(0.606723, 0.606723)
+sprite_frames = SubResource("SpriteFrames_t0g06")
+frame_progress = 0.657492
+
+[node name="weapon1" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(8, -5)
+
+[node name="back_weapon" type="Marker2D" parent="."]
+unique_name_in_owner = true
+
+[node name="weapon2" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-8, -5)
+
+[node name="firerate" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.1
+texture = ExtResource("7_m8108")
+texture_scale = 0.5
+
+[node name="invencibility" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rgdfx")
+}
+
+[node name="exhausted" type="Timer" parent="."]
+wait_time = 7.0
+one_shot = true
+
+[connection signal="timeout" from="invencibility" to="." method="_on_invencibility_timeout"]
+[connection signal="timeout" from="exhausted" to="." method="_on_exhausted_timeout"]

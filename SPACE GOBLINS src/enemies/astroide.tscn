@@ -1,0 +1,156 @@
+[gd_scene load_steps=21 format=3 uid="uid://c63crucgsr8s"]
+
+[ext_resource type="Script" path="res://enemies/astroide.gd" id="1_vug18"]
+[ext_resource type="Texture2D" uid="uid://bmwqljqec0hho" path="res://ASSETS/Foozle_2DS0015_Void_EnvironmentPack/Asteroids/PNGs/Asteroid 01 - Base.png" id="1_wvtg2"]
+[ext_resource type="Shader" uid="uid://bnaid0lqr6yb2" path="res://UI/hit_flash.tres" id="2_eo0wc"]
+[ext_resource type="Texture2D" uid="uid://cbmm2ln8laq2f" path="res://ASSETS/Foozle_2DS0015_Void_EnvironmentPack/Asteroids/PNGs/Asteroid 01 - Explode.png" id="2_fp3yo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f7w6j"]
+resource_local_to_scene = true
+shader = ExtResource("2_eo0wc")
+shader_parameter/enabled = true
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_objve"]
+atlas = ExtResource("1_wvtg2")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fleu1"]
+atlas = ExtResource("2_fp3yo")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqmgi"]
+atlas = ExtResource("2_fp3yo")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34vuy"]
+atlas = ExtResource("2_fp3yo")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7lwi"]
+atlas = ExtResource("2_fp3yo")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jj0lt"]
+atlas = ExtResource("2_fp3yo")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3yes"]
+atlas = ExtResource("2_fp3yo")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5fhb"]
+atlas = ExtResource("2_fp3yo")
+region = Rect2(576, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80od5"]
+atlas = ExtResource("2_fp3yo")
+region = Rect2(672, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8raou"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_objve")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fleu1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqmgi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34vuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7lwi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jj0lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3yes")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5fhb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80od5")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_x7vwe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_80ghi"]
+resource_name = "flash_hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8mtcb"]
+_data = {
+"RESET": SubResource("Animation_x7vwe"),
+"flash_hit": SubResource("Animation_80ghi")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_msxvu"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oqoay"]
+radius = 16.2207
+
+[node name="astroide" type="CharacterBody2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_vug18")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_f7w6j")
+sprite_frames = SubResource("SpriteFrames_8raou")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8mtcb")
+}
+
+[node name="hit" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit"]
+shape = SubResource("CircleShape2D_msxvu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_oqoay")
+
+[connection signal="body_entered" from="hit" to="." method="_on_hit_body_entered"]

@@ -1,0 +1,171 @@
+[gd_scene load_steps=21 format=3 uid="uid://p5u8j5gkhopl"]
+
+[ext_resource type="Script" path="res://spaceship/arrows.gd" id="1_41uuf"]
+[ext_resource type="Texture2D" uid="uid://725gs0hvrbi" path="res://ASSETS/Foozle_2DS0011_Void_MainShip/Main Ship/Main Ship - Weapons/PNGs/Main Ship - Weapons - Rockets.png" id="2_s672e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7u34s"]
+atlas = ExtResource("2_s672e")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5i31w"]
+atlas = ExtResource("2_s672e")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xc2jn"]
+atlas = ExtResource("2_s672e")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bafp0"]
+atlas = ExtResource("2_s672e")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ed86l"]
+atlas = ExtResource("2_s672e")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wlga"]
+atlas = ExtResource("2_s672e")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a81by"]
+atlas = ExtResource("2_s672e")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_romhu"]
+atlas = ExtResource("2_s672e")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fovsu"]
+atlas = ExtResource("2_s672e")
+region = Rect2(384, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fqsu"]
+atlas = ExtResource("2_s672e")
+region = Rect2(432, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dgt3j"]
+atlas = ExtResource("2_s672e")
+region = Rect2(480, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyx8v"]
+atlas = ExtResource("2_s672e")
+region = Rect2(528, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5trcn"]
+atlas = ExtResource("2_s672e")
+region = Rect2(576, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85xxl"]
+atlas = ExtResource("2_s672e")
+region = Rect2(624, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e446q"]
+atlas = ExtResource("2_s672e")
+region = Rect2(672, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fb64x"]
+atlas = ExtResource("2_s672e")
+region = Rect2(720, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o7d1h"]
+atlas = ExtResource("2_s672e")
+region = Rect2(768, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hfr4m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7u34s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5i31w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xc2jn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bafp0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ed86l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wlga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a81by")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_romhu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fovsu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7fqsu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dgt3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyx8v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5trcn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85xxl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e446q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fb64x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o7d1h")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="arrows" type="Node2D"]
+z_index = 69
+rotation = 1.5708
+script = ExtResource("1_41uuf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hfr4m")
+
+[node name="pos1" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-6, -6)
+
+[node name="pos2" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(6, -6)
+
+[node name="pos3" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-11, 0)
+
+[node name="pos4" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(11, 0)
+
+[node name="pos5" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-15, 3)
+
+[node name="pos6" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(15, 3)
+
+[node name="fire" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
+[connection signal="sprite_frames_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_sprite_frames_changed"]
+[connection signal="timeout" from="fire" to="." method="_on_fire_timeout"]

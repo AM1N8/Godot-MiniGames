@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://cn2dcngccnqdj"]
+
+[ext_resource type="Script" path="res://UI/explode_particle.gd" id="1_lfpdb"]
+
+[sub_resource type="Gradient" id="Gradient_pkwg2"]
+colors = PackedColorArray(0.957803, 0, 0.138984, 1, 0.827451, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8ojxa"]
+gradient = SubResource("Gradient_pkwg2")
+
+[sub_resource type="Curve" id="Curve_1txk2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_efwvo"]
+curve = SubResource("Curve_1txk2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kip3k"]
+particle_flag_disable_z = true
+inherit_velocity_ratio = 0.365
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+scale_min = 5.0
+scale_max = 15.0
+scale_curve = SubResource("CurveTexture_efwvo")
+color_ramp = SubResource("GradientTexture1D_8ojxa")
+
+[node name="explode_particle" type="GPUParticles2D"]
+scale = Vector2(0.5, 0.5)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_kip3k")
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+script = ExtResource("1_lfpdb")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

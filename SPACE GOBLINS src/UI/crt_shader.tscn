@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://2mvswxtbug73"]
+
+[ext_resource type="Shader" path="res://UI/crt.gdshader" id="1_drq5f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05em7"]
+shader = ExtResource("1_drq5f")
+shader_parameter/resolution = Vector2(800, 600)
+shader_parameter/scan_line_amount = 0.0
+shader_parameter/warp_amount = 0.1
+shader_parameter/noise_amount = 0.0
+shader_parameter/interference_amount = 0.279
+shader_parameter/grille_amount = 0.1
+shader_parameter/grille_size = 1.0
+shader_parameter/vignette_amount = 0.6
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/aberation_amount = 0.5
+shader_parameter/roll_line_amount = 0.0
+shader_parameter/roll_speed = 1.0
+shader_parameter/scan_line_strength = -8.0
+shader_parameter/pixel_strength = -2.0
+
+[node name="crt_shader" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_05em7")
+offset_right = 1152.0
+offset_bottom = 648.0

@@ -1,0 +1,117 @@
+[gd_scene load_steps=16 format=3 uid="uid://b0o31du6qbq1l"]
+
+[ext_resource type="Texture2D" uid="uid://74tqmjnojq2x" path="res://ASSETS/Foozle_2DS0011_Void_MainShip/Main Ship/Main Ship - Weapons/PNGs/Main Ship - Weapons - Big Space Gun.png" id="1_nny7j"]
+[ext_resource type="Script" path="res://weapons/cannon/cannon.gd" id="1_q1gjn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmew7"]
+atlas = ExtResource("1_nny7j")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_358vl"]
+atlas = ExtResource("1_nny7j")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfmsw"]
+atlas = ExtResource("1_nny7j")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aq3te"]
+atlas = ExtResource("1_nny7j")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw3nf"]
+atlas = ExtResource("1_nny7j")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wv63r"]
+atlas = ExtResource("1_nny7j")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42p6g"]
+atlas = ExtResource("1_nny7j")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6jokm"]
+atlas = ExtResource("1_nny7j")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edx4m"]
+atlas = ExtResource("1_nny7j")
+region = Rect2(384, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7gcv"]
+atlas = ExtResource("1_nny7j")
+region = Rect2(432, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gptc3"]
+atlas = ExtResource("1_nny7j")
+region = Rect2(480, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w114m"]
+atlas = ExtResource("1_nny7j")
+region = Rect2(528, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_co02f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmew7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_358vl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tfmsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aq3te")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yw3nf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wv63r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42p6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6jokm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edx4m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7gcv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gptc3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w114m")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="cannon" type="Node2D"]
+scale = Vector2(0.7, 0.7)
+script = ExtResource("1_q1gjn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 30
+sprite_frames = SubResource("SpriteFrames_co02f")
+frame = 11
+frame_progress = 1.0
+
+[node name="pos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -16)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.7
+autostart = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
