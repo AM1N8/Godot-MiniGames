@@ -1,0 +1,79 @@
+[gd_scene load_steps=13 format=3 uid="uid://b6gasy75owpyl"]
+
+[ext_resource type="Texture2D" uid="uid://dbnmqa7jyl7j6" path="res://assets/slime/slime1.png" id="1_fmtr8"]
+[ext_resource type="Script" uid="uid://camykf7uub66r" path="res://enemy/slime.gd" id="1_lgdlh"]
+[ext_resource type="Texture2D" uid="uid://vjscpo8xosn6" path="res://assets/slime/slime2.png" id="2_hyfv2"]
+[ext_resource type="Texture2D" uid="uid://btem10c3ejf26" path="res://assets/slime/slime3.png" id="3_yo8nk"]
+[ext_resource type="Texture2D" uid="uid://dr8r2sjotnyen" path="res://assets/slime/slime4.png" id="4_no37b"]
+[ext_resource type="Texture2D" uid="uid://div7lt8rkwy1a" path="res://assets/slime/slime5.png" id="5_tj0ej"]
+[ext_resource type="Texture2D" uid="uid://brbawqtfybjsc" path="res://assets/slime/slime6.png" id="6_sc7nn"]
+[ext_resource type="Texture2D" uid="uid://bwob3eufqoogu" path="res://assets/slime/slime7.png" id="7_ucpw6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2hnun"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_fmtr8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_hyfv2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_yo8nk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_no37b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tj0ej")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_sc7nn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ucpw6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_78fea"]
+radius = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cgvar"]
+radius = 18.1728
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_g0wb0"]
+polygon = PackedVector2Array(-26, -2, -26, -1, -25, 0, -24, 1, -22, 2, -20, 3, -16, 4, -13, 5, 12, 5, 15, 4, 19, 3, 21, 2, 23, 1, 24, 0, 25, -1, 26, -2, 25, -2, 21, -1, 17, 0, 10, 1, 10, 2, -10, 2, -10, 1, -17, 0, -21, -1, -24, -2)
+
+[node name="slime" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_lgdlh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -19)
+sprite_frames = SubResource("SpriteFrames_2hnun")
+frame_progress = 0.953301
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -15)
+shape = SubResource("CircleShape2D_78fea")
+
+[node name="posi" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="hit" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit"]
+position = Vector2(0, -16.5)
+shape = SubResource("CircleShape2D_cgvar")
+debug_color = Color(0.90644, 0.00012591, 0.743336, 0.42)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_g0wb0")
+
+[connection signal="body_entered" from="hit" to="." method="_on_hit_body_entered"]

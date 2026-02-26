@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxea058qcq5is"]
+
+[ext_resource type="Script" uid="uid://ccasgmt56xtpk" path="res://death_layer.gd" id="1_m8cck"]
+[ext_resource type="FontFile" uid="uid://st8quceuqtpo" path="res://assets/FFFFORWA.TTF" id="2_vlk3c"]
+
+[node name="death_layer" type="CanvasLayer"]
+process_mode = 2
+visible = false
+script = ExtResource("1_m8cck")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.792157)
+
+[node name="youdied" type="Label" parent="."]
+modulate = Color(1, 0.0117647, 0, 1)
+offset_left = 120.0
+offset_top = 208.0
+offset_right = 214.0
+offset_bottom = 231.0
+scale = Vector2(9.93141, 8.93384)
+theme_override_fonts/font = ExtResource("2_vlk3c")
+text = "YOU DIED"
+
+[node name="score" type="Label" parent="."]
+offset_left = 296.0
+offset_top = 408.0
+offset_right = 410.0
+offset_bottom = 431.0
+scale = Vector2(1.88642, 1.88642)
+theme_override_fonts/font = ExtResource("2_vlk3c")
+text = "Your Score :"
+
+[node name="score_nbr" type="Label" parent="."]
+offset_left = 552.0
+offset_top = 408.0
+offset_right = 666.0
+offset_bottom = 431.0
+scale = Vector2(1.88642, 1.88642)
+theme_override_fonts/font = ExtResource("2_vlk3c")
+text = "0"
+
+[node name="replay" type="Button" parent="."]
+offset_left = 752.0
+offset_top = 432.0
+offset_right = 828.0
+offset_bottom = 462.0
+scale = Vector2(2.0508, 2.0508)
+theme_override_fonts/font = ExtResource("2_vlk3c")
+text = "Replay"
+
+[node name="menu" type="Button" parent="."]
+offset_left = 752.0
+offset_top = 520.0
+offset_right = 828.0
+offset_bottom = 550.0
+scale = Vector2(2.03868, 2.03868)
+theme_override_fonts/font = ExtResource("2_vlk3c")
+text = "Menu"
+
+[connection signal="pressed" from="replay" to="." method="_on_replay_pressed"]
+[connection signal="pressed" from="menu" to="." method="_on_menu_pressed"]

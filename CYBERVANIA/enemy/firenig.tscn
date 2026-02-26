@@ -1,0 +1,120 @@
+[gd_scene load_steps=17 format=3 uid="uid://03p14kklwefo"]
+
+[ext_resource type="Script" uid="uid://bri4w3hfqfclb" path="res://firenig.gd" id="1_uw42y"]
+[ext_resource type="Texture2D" uid="uid://dlxatkqwq7cdx" path="res://assets/firenig/NoobGodoter'sSpritesheet.png" id="2_vasdw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwr4v"]
+atlas = ExtResource("2_vasdw")
+region = Rect2(0, 0, 288, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm4mc"]
+atlas = ExtResource("2_vasdw")
+region = Rect2(288, 0, 288, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbaxu"]
+atlas = ExtResource("2_vasdw")
+region = Rect2(576, 0, 288, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5n6rw"]
+atlas = ExtResource("2_vasdw")
+region = Rect2(864, 0, 288, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6t4fd"]
+atlas = ExtResource("2_vasdw")
+region = Rect2(1152, 0, 288, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u4juw"]
+atlas = ExtResource("2_vasdw")
+region = Rect2(1440, 0, 288, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0yxi8"]
+atlas = ExtResource("2_vasdw")
+region = Rect2(1728, 0, 288, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olg2j"]
+atlas = ExtResource("2_vasdw")
+region = Rect2(2016, 0, 288, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w33hf"]
+atlas = ExtResource("2_vasdw")
+region = Rect2(2304, 0, 288, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_das07"]
+atlas = ExtResource("2_vasdw")
+region = Rect2(2592, 0, 288, 288)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8np22"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwr4v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fm4mc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbaxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5n6rw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6t4fd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u4juw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0yxi8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_olg2j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w33hf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_das07")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_asdg2"]
+radius = 96.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ooq88"]
+radius = 104.307
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_6nolm"]
+polygon = PackedVector2Array(-104, 16, -104, 48, -96, 64, -88, 88, -72, 104, -48, 120, -8, 120, 16, 112, 32, 96, 48, 80, 64, 56, 64, 8, 40, -16, 24, -32, -56, -32, -80, -24)
+
+[node name="firenig" type="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_uw42y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8np22")
+frame_progress = 0.144738
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-16, 32)
+shape = SubResource("CircleShape2D_asdg2")
+
+[node name="hit" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit"]
+position = Vector2(-16, 32)
+shape = SubResource("CircleShape2D_ooq88")
+debug_color = Color(0.951927, 1.54018e-06, 0.561207, 0.42)
+
+[node name="pos" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_6nolm")
+
+[connection signal="body_entered" from="hit" to="." method="_on_hit_body_entered"]

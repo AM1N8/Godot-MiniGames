@@ -1,0 +1,129 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxp5m77iq8kh0"]
+
+[ext_resource type="Script" uid="uid://byqoer2qtfl1v" path="res://UI/main_menu.gd" id="1_h3xju"]
+[ext_resource type="FontFile" uid="uid://st8quceuqtpo" path="res://assets/FFFFORWA.TTF" id="1_kseoq"]
+
+[sub_resource type="Animation" id="Animation_s4n8b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fader:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.109804, 0.109804, 0.109804, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mrlue"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fader:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.109804, 0.109804, 0.109804, 0), Color(0.109804, 0.109804, 0.109804, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_njq5w"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fader:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.109804, 0.109804, 0.109804, 1), Color(0.109804, 0.109804, 0.109804, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yneoy"]
+_data = {
+&"RESET": SubResource("Animation_s4n8b"),
+&"fade_in": SubResource("Animation_mrlue"),
+&"fade_out": SubResource("Animation_njq5w")
+}
+
+[node name="main menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h3xju")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.111197, 0.111197, 0.111197, 1)
+
+[node name="lock" type="Node2D" parent="."]
+position = Vector2(583, 212)
+
+[node name="title" type="Label" parent="lock"]
+offset_left = -446.0
+offset_top = -61.0
+offset_right = -316.0
+offset_bottom = -38.0
+scale = Vector2(6.86059, 6.86059)
+theme_override_fonts/font = ExtResource("1_kseoq")
+text = "CYBERVANIA"
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 396.0
+offset_right = 570.0
+offset_bottom = 427.0
+scale = Vector2(2, 2)
+theme_override_fonts/font = ExtResource("1_kseoq")
+text = " START "
+
+[node name="options" type="Button" parent="."]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 466.0
+offset_right = 537.0
+offset_bottom = 497.0
+scale = Vector2(2, 2)
+theme_override_fonts/font = ExtResource("1_kseoq")
+text = " OPTIONS "
+
+[node name="quit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 504.0
+offset_top = 535.0
+offset_right = 572.0
+offset_bottom = 566.0
+scale = Vector2(2, 2)
+theme_override_fonts/font = ExtResource("1_kseoq")
+text = " QUIT "
+
+[node name="fader" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+color = Color(0.109804, 0.109804, 0.109804, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_yneoy")
+}
+
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]

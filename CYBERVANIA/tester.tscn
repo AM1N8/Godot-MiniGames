@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://chwky0yl0ydm2"]
+
+[ext_resource type="Script" uid="uid://bc7hv8a8gh0qh" path="res://tester.gd" id="1_3csus"]
+[ext_resource type="PackedScene" uid="uid://g6rc4hiow8y5" path="res://player/player.tscn" id="1_q552f"]
+[ext_resource type="PackedScene" uid="uid://btx27e3ygxwf0" path="res://enemy/flower.tscn" id="3_dd8yv"]
+[ext_resource type="Texture2D" uid="uid://bemifl2ip2at7" path="res://assets/wall.png" id="3_vuyl3"]
+[ext_resource type="PackedScene" uid="uid://dfxqdiyca4q70" path="res://UI/ui_screen.tscn" id="6_mfyiq"]
+[ext_resource type="PackedScene" uid="uid://dxea058qcq5is" path="res://UI/death_layer.tscn" id="7_0guox"]
+[ext_resource type="PackedScene" uid="uid://u82dsanv7ccl" path="res://UI/camera_2d.tscn" id="7_rf5pu"]
+
+[sub_resource type="Curve2D" id="Curve2D_goj7b"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -420, -248, 0, 0, 0, 0, 416, -252, 0, 0, 0, 0, 416, 244, 0, 0, 0, 0, -420, 240, 0, 0, 0, 0, -420, 240, 0, 0, 0, 0, -420, -248)
+}
+point_count = 6
+
+[node name="tester" type="Node2D"]
+script = ExtResource("1_3csus")
+
+[node name="player" parent="." instance=ExtResource("1_q552f")]
+z_index = 20
+scale = Vector2(2, 2)
+
+[node name="wall" type="RemoteTransform2D" parent="player"]
+remote_path = NodePath("../../wall")
+
+[node name="Path2D" type="Path2D" parent="player"]
+curve = SubResource("Curve2D_goj7b")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-420, -248)
+rotation = -0.00478465
+
+[node name="camera_control" type="RemoteTransform2D" parent="player"]
+remote_path = NodePath("../../Camera2D")
+
+[node name="wall" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="wall"]
+scale = Vector2(50, 50)
+texture = ExtResource("3_vuyl3")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="flower" parent="." instance=ExtResource("3_dd8yv")]
+position = Vector2(336, -24)
+
+[node name="UI_screen" parent="." instance=ExtResource("6_mfyiq")]
+
+[node name="Camera2D" parent="." instance=ExtResource("7_rf5pu")]
+
+[node name="wave" type="Timer" parent="."]
+wait_time = 15.0
+autostart = true
+
+[node name="death_layer" parent="." instance=ExtResource("7_0guox")]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="wave" to="." method="_on_wave_timeout"]

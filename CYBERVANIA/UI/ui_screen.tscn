@@ -1,0 +1,134 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfxqdiyca4q70"]
+
+[ext_resource type="Script" uid="uid://50tsvhs8xege" path="res://UI/UI_screen.gd" id="1_1p04h"]
+[ext_resource type="FontFile" uid="uid://st8quceuqtpo" path="res://assets/FFFFORWA.TTF" id="2_e8qqq"]
+
+[node name="UI_screen" type="CanvasLayer"]
+script = ExtResource("1_1p04h")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+modulate = Color(0.0235294, 1, 1, 1)
+offset_left = 593.0
+offset_top = 601.0
+offset_right = 1128.0
+offset_bottom = 627.0
+theme_override_fonts/font = ExtResource("2_e8qqq")
+max_value = 20.0
+
+[node name="lvl" type="Label" parent="ProgressBar"]
+layout_mode = 0
+offset_left = -45.0
+offset_top = 4.0
+offset_right = -5.0
+offset_bottom = 27.0
+theme_override_fonts/font = ExtResource("2_e8qqq")
+text = "lvl:"
+
+[node name="nbr" type="Label" parent="ProgressBar/lvl"]
+layout_mode = 0
+offset_left = 32.0
+offset_right = 72.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_e8qqq")
+text = "1"
+
+[node name="Board" type="Node2D" parent="."]
+process_mode = 2
+visible = false
+position = Vector2(576, 320)
+scale = Vector2(8.55205, 8.55205)
+
+[node name="ColorRect" type="ColorRect" parent="Board"]
+show_behind_parent = true
+offset_left = -68.0
+offset_top = -38.0
+offset_right = 68.0
+offset_bottom = 39.0
+color = Color(0, 0, 0, 0.435294)
+
+[node name="BULLET" type="Button" parent="Board"]
+offset_left = 14.6164
+offset_top = 0.818517
+offset_right = 100.616
+offset_bottom = 31.8185
+scale = Vector2(0.205926, 0.205926)
+theme_override_fonts/font = ExtResource("2_e8qqq")
+text = "BULLET"
+
+[node name="SPEED" type="Button" parent="Board"]
+offset_left = -7.83438
+offset_top = 10.0561
+offset_right = 72.1656
+offset_bottom = 41.056
+scale = Vector2(0.200116, 0.200116)
+theme_override_fonts/font = ExtResource("2_e8qqq")
+text = "SPEED "
+
+[node name="HEALTH" type="Button" parent="Board"]
+offset_left = -32.8576
+offset_top = 0.233863
+offset_right = 55.1424
+offset_bottom = 31.2339
+scale = Vector2(0.216154, 0.216154)
+theme_override_fonts/font = ExtResource("2_e8qqq")
+text = "HEALTH"
+
+[node name="level up" type="Label" parent="Board"]
+offset_left = -9.35448
+offset_top = -13.4471
+offset_right = 78.6455
+offset_bottom = 33.553
+scale = Vector2(0.383579, 0.383579)
+theme_override_fonts/font = ExtResource("2_e8qqq")
+text = "Level 
+  UP"
+
+[node name="Health" type="ProgressBar" parent="."]
+modulate = Color(0.162834, 0.78725, 0, 1)
+offset_left = 56.0
+offset_top = 600.0
+offset_right = 360.0
+offset_bottom = 627.0
+theme_override_fonts/font = ExtResource("2_e8qqq")
+max_value = 10.0
+
+[node name="HP" type="Label" parent="Health"]
+layout_mode = 0
+offset_left = -33.0
+offset_top = 5.0
+offset_right = 7.0
+offset_bottom = 28.0
+theme_override_fonts/font = ExtResource("2_e8qqq")
+text = "HP"
+
+[node name="score" type="Label" parent="."]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 72.0
+offset_bottom = 39.0
+theme_override_fonts/font = ExtResource("2_e8qqq")
+text = "SCORE:"
+
+[node name="score_nbr" type="Label" parent="."]
+offset_left = 96.0
+offset_top = 16.0
+offset_right = 136.0
+offset_bottom = 39.0
+theme_override_fonts/font = ExtResource("2_e8qqq")
+text = "0
+"
+
+[node name="pause" type="Button" parent="."]
+process_mode = 3
+offset_left = 1096.0
+offset_top = 8.0
+offset_right = 1116.0
+offset_bottom = 38.0
+scale = Vector2(2.23145, 1.47493)
+theme_override_fonts/font = ExtResource("2_e8qqq")
+text = "II"
+
+[connection signal="pressed" from="Board/BULLET" to="." method="_on_bullet_pressed"]
+[connection signal="pressed" from="Board/SPEED" to="." method="_on_speed_pressed"]
+[connection signal="pressed" from="Board/HEALTH" to="." method="_on_health_pressed"]
+[connection signal="pressed" from="pause" to="." method="_on_pause_pressed"]

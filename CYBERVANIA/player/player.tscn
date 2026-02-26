@@ -1,0 +1,154 @@
+[gd_scene load_steps=25 format=3 uid="uid://g6rc4hiow8y5"]
+
+[ext_resource type="Script" uid="uid://ctise6q0pjsm0" path="res://player/player.gd" id="1_g46g3"]
+[ext_resource type="Texture2D" uid="uid://1nouwlglw8ek" path="res://assets/body1.png" id="2_n536q"]
+[ext_resource type="Texture2D" uid="uid://b4sx0purh0wma" path="res://assets/body2.png" id="3_7f3ka"]
+[ext_resource type="Texture2D" uid="uid://g2fr728b2k28" path="res://assets/body3.png" id="4_7myah"]
+[ext_resource type="Texture2D" uid="uid://2gsvhxyl8m7o" path="res://assets/body4.png" id="5_74k6i"]
+[ext_resource type="Texture2D" uid="uid://b5nm62oin30s7" path="res://assets/body5.png" id="6_fdnc2"]
+[ext_resource type="Texture2D" uid="uid://b4ydlv6dguqa8" path="res://assets/body6.png" id="7_5l2sg"]
+[ext_resource type="Texture2D" uid="uid://ba0ksndjag2ua" path="res://assets/body7.png" id="8_xlmi8"]
+[ext_resource type="Texture2D" uid="uid://j868dfto4aup" path="res://assets/body8.png" id="9_ho6o1"]
+[ext_resource type="Texture2D" uid="uid://dag3wygj5yaii" path="res://assets/body9.png" id="10_sam2x"]
+[ext_resource type="Texture2D" uid="uid://btouqm14mf1js" path="res://assets/body10.png" id="11_47fl1"]
+[ext_resource type="Texture2D" uid="uid://dcocnlskaav56" path="res://assets/body11.png" id="12_vunqm"]
+[ext_resource type="Script" uid="uid://cs07cs5a80jib" path="res://player/shooting area.gd" id="13_dc40p"]
+[ext_resource type="Texture2D" uid="uid://ciiahji0iimr0" path="res://assets/abilities/shield.png" id="14_orgr2"]
+[ext_resource type="Script" uid="uid://10oqfsdoafws" path="res://player/shield.gd" id="14_sb1i1"]
+[ext_resource type="AudioStream" uid="uid://ot7lq2g3edal" path="res://assets/pop-39222.mp3" id="16_up78o"]
+[ext_resource type="Texture2D" uid="uid://bj5fi4j2v068u" path="res://assets/2d_lights_and_shadows_neutral_point_light.webp" id="17_j6k7u"]
+[ext_resource type="AudioStream" uid="uid://cfdjllkhmp8gr" path="res://assets/laser-45816.mp3" id="18_2h534"]
+[ext_resource type="PackedScene" uid="uid://dnxdsne28p7dd" path="res://abilites/death_wheel.tscn" id="19_ujyq2"]
+[ext_resource type="Script" uid="uid://dnvb1q5tjbue1" path="res://player/wheel_lock.gd" id="19_ymwya"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o5sy5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_n536q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7f3ka")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7myah")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_74k6i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_fdnc2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_5l2sg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_xlmi8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ho6o1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_sam2x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_47fl1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_vunqm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_swhcn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gu184"]
+radius = 409.161
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0oync"]
+radius = 53.0094
+
+[node name="player" type="CharacterBody2D"]
+z_index = 21
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_g46g3")
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+z_index = 21
+position = Vector2(0, -25)
+sprite_frames = SubResource("SpriteFrames_o5sy5")
+frame_progress = 0.887891
+flip_h = true
+
+[node name="head pos" type="Node2D" parent="."]
+position = Vector2(0, -42)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -15)
+shape = SubResource("CapsuleShape2D_swhcn")
+
+[node name="shooting area" type="Area2D" parent="."]
+script = ExtResource("13_dc40p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="shooting area"]
+shape = SubResource("CircleShape2D_gu184")
+debug_color = Color(0.983974, 0, 0.347992, 0.42)
+
+[node name="lock" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -19)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="shield" type="Area2D" parent="."]
+visible = false
+monitoring = false
+script = ExtResource("14_sb1i1")
+
+[node name="Shield" type="Sprite2D" parent="shield"]
+scale = Vector2(2, 2)
+texture = ExtResource("14_orgr2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="shield"]
+shape = SubResource("CircleShape2D_0oync")
+debug_color = Color(0.317647, 1, 0, 0.419608)
+
+[node name="get_exp" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_up78o")
+volume_db = -1.0
+pitch_scale = 0.01
+max_polyphony = 5
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.3
+shadow_enabled = true
+texture = ExtResource("17_j6k7u")
+texture_scale = 1.5
+
+[node name="lazer_gun" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_2h534")
+max_polyphony = 3
+
+[node name="wheel_lock" type="Node2D" parent="."]
+script = ExtResource("19_ymwya")
+
+[node name="death_wheel" parent="wheel_lock" instance=ExtResource("19_ujyq2")]
+position = Vector2(118, 0)
+
+[node name="death_wheel2" parent="wheel_lock" instance=ExtResource("19_ujyq2")]
+position = Vector2(-118, 0)
+
+[node name="death_wheel3" parent="wheel_lock" instance=ExtResource("19_ujyq2")]
+position = Vector2(0, 118)
+
+[node name="death_wheel4" parent="wheel_lock" instance=ExtResource("19_ujyq2")]
+position = Vector2(0, -118)
+
+[connection signal="timeout" from="Timer" to="shooting area" method="_on_timer_timeout"]
+[connection signal="body_entered" from="shield" to="shield" method="_on_body_entered"]
+[connection signal="body_exited" from="shield" to="shield" method="_on_body_exited"]

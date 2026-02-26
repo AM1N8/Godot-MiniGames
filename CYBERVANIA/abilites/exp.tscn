@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://ld3y5aalatol"]
+
+[ext_resource type="Texture2D" uid="uid://bxaxk35u5nb6h" path="res://assets/expcoin.png" id="1_714pn"]
+[ext_resource type="Script" uid="uid://b7erronthk6pe" path="res://abilites/exp.gd" id="1_odby8"]
+[ext_resource type="Shader" uid="uid://dtduaxkflydbb" path="res://abilites/exp_glow.gdshader" id="2_6xjif"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4sqyh"]
+radius = 78.0064
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5sgf2"]
+shader = ExtResource("2_6xjif")
+shader_parameter/size_effect = 0.1
+shader_parameter/speed = 1.0
+shader_parameter/highlight_strength = 0.5
+shader_parameter/color_mode_toggle = false
+shader_parameter/is_horizontal = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_16ya0"]
+radius = 9.55249
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_iav3x"]
+polygon = PackedVector2Array(-2, 8, 2, 8, 2, 7, 4, 7, 4, 6, 5, 6, 5, 5, 6, 5, 6, 4, 7, 4, 7, 2, 8, 2, 8, -2, 7, -2, 7, -4, 6, -4, 6, -5, 5, -5, 5, -6, 4, -6, 4, -7, 2, -7, 2, -8, -2, -8, -2, -7, -4, -7, -4, -6, -5, -6, -5, -5, -6, -5, -6, -4, -7, -4, -7, -2, -8, -2, -8, 2, -7, 2, -7, 4, -6, 4, -6, 5, -5, 5, -5, 6, -4, 6, -4, 7, -2, 7)
+
+[node name="exp" type="Area2D"]
+scale = Vector2(2, 2)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_odby8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4sqyh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_5sgf2")
+texture = ExtResource("1_714pn")
+
+[node name="get_coin" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="get_coin"]
+shape = SubResource("CircleShape2D_16ya0")
+debug_color = Color(0.334724, 0.622389, 3.85046e-07, 0.42)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_iav3x")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="get_coin" to="." method="_on_get_coin_body_entered"]

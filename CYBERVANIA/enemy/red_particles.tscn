@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://78c86v3b7vn6"]
+
+[ext_resource type="Script" uid="uid://bdkxed4vppesd" path="res://enemy/red_particles.gd" id="1_tw12i"]
+
+[sub_resource type="Gradient" id="Gradient_1k3k7"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2vkym"]
+gradient = SubResource("Gradient_1k3k7")
+
+[sub_resource type="Curve" id="Curve_guk52"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ghojo"]
+curve = SubResource("Curve_guk52")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2lvve"]
+particle_flag_disable_z = true
+radial_velocity_min = 157.3
+radial_velocity_max = 269.66
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 15.0
+scale_curve = SubResource("CurveTexture_ghojo")
+color = Color(1, 0.00392157, 0, 1)
+color_ramp = SubResource("GradientTexture1D_2vkym")
+
+[node name="red_particles" type="GPUParticles2D"]
+position = Vector2(0, -3.22581)
+scale = Vector2(-0.492014, -0.492014)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_2lvve")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.23
+script = ExtResource("1_tw12i")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

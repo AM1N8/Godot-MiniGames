@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://cu0y8hj6nxbwf"]
+
+[ext_resource type="Shader" uid="uid://dtduaxkflydbb" path="res://abilites/exp_glow.gdshader" id="1_46lgh"]
+[ext_resource type="Script" uid="uid://bremss0mf283q" path="res://abilites/shiled_item.gd" id="1_nebwq"]
+[ext_resource type="Texture2D" uid="uid://c6rnttym8hxfe" path="res://assets/abilities/shield_item.png" id="2_rge86"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rku2m"]
+shader = ExtResource("1_46lgh")
+shader_parameter/size_effect = 0.1
+shader_parameter/speed = 1.0
+shader_parameter/highlight_strength = 0.5
+shader_parameter/color_mode_toggle = false
+shader_parameter/is_horizontal = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i8k3i"]
+radius = 206.01
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sfn3h"]
+radius = 23.0217
+
+[node name="shiled_item" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_nebwq")
+
+[node name="ShieldItem" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_rku2m")
+scale = Vector2(4, 4)
+texture = ExtResource("2_rge86")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_i8k3i")
+
+[node name="take" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="take"]
+shape = SubResource("CircleShape2D_sfn3h")
+debug_color = Color(0.956793, 0, 0.536037, 0.42)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="take" to="." method="_on_take_body_entered"]

@@ -1,0 +1,107 @@
+[gd_scene load_steps=21 format=3 uid="uid://bxpoapyv8vyl5"]
+
+[ext_resource type="Script" uid="uid://404c6cp6q2po" path="res://eye_planet.gd" id="1_4bus8"]
+[ext_resource type="Texture2D" uid="uid://w8j6xevuvf1y" path="res://assets/planet_eye/Sprite-0007.png" id="2_48mpe"]
+[ext_resource type="Texture2D" uid="uid://y0fl0qmw2w1t" path="res://assets/planet_eye/Sprite-0008.png" id="3_wtiv7"]
+[ext_resource type="Texture2D" uid="uid://dhhr4cyx5m3ru" path="res://assets/planet_eye/Sprite-0009.png" id="4_1lh5f"]
+[ext_resource type="Texture2D" uid="uid://dp2knrhwpfulr" path="res://assets/planet_eye/Sprite-0010.png" id="5_scqff"]
+[ext_resource type="Texture2D" uid="uid://gbqqj8ydoqai" path="res://assets/planet_eye/Sprite-0011.png" id="6_qclf4"]
+[ext_resource type="Texture2D" uid="uid://bmua02hxew76f" path="res://assets/planet_eye/Sprite-0012.png" id="7_1urmh"]
+[ext_resource type="Texture2D" uid="uid://c2dxegu33fmw7" path="res://assets/planet_eye/Sprite-0013.png" id="8_2su1g"]
+[ext_resource type="Texture2D" uid="uid://bqnkt2gitukkn" path="res://assets/planet_eye/Sprite-0014.png" id="9_0ggki"]
+[ext_resource type="Texture2D" uid="uid://cldsjthe231po" path="res://assets/planet_eye/Sprite-0015.png" id="10_ts76u"]
+[ext_resource type="Texture2D" uid="uid://5cxpi1m0n5gj" path="res://assets/planet_eye/Sprite-0016.png" id="11_20opf"]
+[ext_resource type="Texture2D" uid="uid://btrgqgb3mr63l" path="res://assets/planet_eye/Sprite-0017.png" id="12_u3106"]
+[ext_resource type="Texture2D" uid="uid://cav2xx5xwfugn" path="res://assets/planet_eye/Sprite-0018.png" id="13_mlgc6"]
+[ext_resource type="Texture2D" uid="uid://dw8jj432hvmud" path="res://assets/planet_eye/Sprite-0019.png" id="14_wn00r"]
+[ext_resource type="Texture2D" uid="uid://b2o6r3lmf65sn" path="res://assets/planet_eye/Sprite-0020.png" id="15_ebwa5"]
+[ext_resource type="Texture2D" uid="uid://djf54ppviuipu" path="res://assets/planet_eye/Sprite-0021.png" id="16_fx5ol"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lmnny"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_48mpe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wtiv7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1lh5f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_scqff")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_qclf4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_1urmh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_2su1g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_0ggki")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ts76u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_20opf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_u3106")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_mlgc6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_wn00r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_ebwa5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_fx5ol")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_paojr"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_47sl2"]
+radius = 16.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4wdgp"]
+polygon = PackedVector2Array(11, -12, 14, -8, 16, -2, 15, 5, 12, 11, 7, 14, 1, 16, -5, 15, -11, 12, -15, 6, -16, -1, -14, -8, -10, -13, -4, -16, 3, -16, 8, -14)
+
+[node name="eye_planet" type="CharacterBody2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_4bus8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_lmnny")
+frame_progress = 0.310365
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_paojr")
+
+[node name="pos" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="hit" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit"]
+shape = SubResource("CircleShape2D_47sl2")
+debug_color = Color(0.937687, 1.75196e-05, 0.626907, 0.42)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_4wdgp")
+
+[connection signal="body_entered" from="hit" to="." method="_on_hit_body_entered"]

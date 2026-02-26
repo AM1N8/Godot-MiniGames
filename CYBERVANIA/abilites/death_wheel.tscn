@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnxdsne28p7dd"]
+
+[ext_resource type="Script" uid="uid://82cn0jwl8xws" path="res://death_wheel.gd" id="1_0al2f"]
+[ext_resource type="Texture2D" uid="uid://dd0s4bsrof7u3" path="res://assets/abilities/deathwheel.png" id="2_6vm8d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pj0ym"]
+radius = 16.0
+
+[node name="death_wheel" type="Area2D"]
+visible = false
+script = ExtResource("1_0al2f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pj0ym")
+
+[node name="Deathwheel" type="Sprite2D" parent="."]
+texture = ExtResource("2_6vm8d")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

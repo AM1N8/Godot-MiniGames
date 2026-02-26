@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://nm17xbycx5d7"]
+
+[ext_resource type="Script" uid="uid://c8teba30ta7a4" path="res://abilites/death_wheel_item.gd" id="1_ge6kc"]
+[ext_resource type="Texture2D" uid="uid://ctnoetuif2lut" path="res://assets/abilities/death_whell_item.png" id="1_lh2r2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dxti6"]
+radius = 91.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5uyxf"]
+radius = 15.0333
+
+[node name="death_wheel_item" type="Area2D"]
+scale = Vector2(1.5, 1.5)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_ge6kc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dxti6")
+debug_color = Color(0.960478, 6.73831e-07, 0.515802, 0.42)
+
+[node name="take" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="take"]
+shape = SubResource("CircleShape2D_5uyxf")
+
+[node name="DeathWhellItem" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_lh2r2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="take" to="." method="_on_take_body_entered"]
