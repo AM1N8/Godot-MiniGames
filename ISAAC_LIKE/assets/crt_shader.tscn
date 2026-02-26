@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyqk80ayev3fb"]
+
+[ext_resource type="Shader" uid="uid://clr0jgudr1lde" path="res://CRT.gdshader" id="1_xmgfx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6wdxb"]
+shader = ExtResource("1_xmgfx")
+shader_parameter/resolution = Vector2(320, 180)
+shader_parameter/scan_line_amount = 0.5
+shader_parameter/warp_amount = 0.1
+shader_parameter/noise_amount = 0.0
+shader_parameter/interference_amount = 0.0
+shader_parameter/grille_amount = 0.0
+shader_parameter/grille_size = 1.0
+shader_parameter/vignette_amount = 0.6
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/aberation_amount = 0.0
+shader_parameter/roll_line_amount = 0.0
+shader_parameter/roll_speed = 1.0
+shader_parameter/scan_line_strength = -8.0
+shader_parameter/pixel_strength = -2.0
+
+[node name="CRT_SHADER" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6wdxb")
+offset_right = 352.0
+offset_bottom = 208.0
+mouse_filter = 2
