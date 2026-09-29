@@ -1,0 +1,156 @@
+[gd_scene load_steps=14 format=3 uid="uid://cqotk16il11iv"]
+
+[ext_resource type="FontFile" uid="uid://cmdji8245y4ot" path="res://FFFFORWA.TTF" id="1_sirqu"]
+[ext_resource type="Script" path="res://Menu.gd" id="1_w4y58"]
+[ext_resource type="PackedScene" uid="uid://dbvk6kxypphy" path="res://crt_vfx.tscn" id="2_qt0jp"]
+[ext_resource type="PackedScene" uid="uid://dn6ksa0681be7" path="res://ball_imposter.tscn" id="4_dxmp8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2r6ig"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4btym"]
+size = Vector2(418, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x002w"]
+size = Vector2(1244, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bgmly"]
+size = Vector2(40, 976)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ini00"]
+a = Vector2(472, 392)
+b = Vector2(664, 392)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_cq30u"]
+a = Vector2(688, 480)
+b = Vector2(440, 480)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ievhf"]
+a = Vector2(504, 560)
+b = Vector2(616, 560)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6poo"]
+size = Vector2(773, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p83dm"]
+size = Vector2(32, 25)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w4y58")
+
+[node name="background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.0923971, 0.0923971, 0.0923971, 1)
+
+[node name="Title" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 352.0
+offset_top = 128.0
+offset_right = 408.0
+offset_bottom = 152.0
+scale = Vector2(7.70619, 7.70619)
+theme_override_fonts/font = ExtResource("1_sirqu")
+text = "PONG"
+
+[node name="CRT_vfx" parent="." instance=ExtResource("2_qt0jp")]
+
+[node name="START" type="Button" parent="."]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 384.0
+offset_right = 532.0
+offset_bottom = 414.0
+scale = Vector2(2.72973, 2.72973)
+theme_override_fonts/font = ExtResource("1_sirqu")
+text = " START"
+icon_alignment = 1
+
+[node name="OPTIONS" type="Button" parent="."]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 472.0
+offset_right = 542.0
+offset_bottom = 502.0
+scale = Vector2(2.45053, 2.45053)
+theme_override_fonts/font = ExtResource("1_sirqu")
+text = "SETTINGS"
+icon_alignment = 1
+
+[node name="QUIT" type="Button" parent="."]
+layout_mode = 0
+offset_left = 496.0
+offset_top = 552.0
+offset_right = 552.0
+offset_bottom = 583.0
+scale = Vector2(2.33195, 2.33195)
+theme_override_fonts/font = ExtResource("1_sirqu")
+text = "QUIT"
+
+[node name="change_color" type="Button" parent="."]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 112.0
+offset_right = 768.0
+offset_bottom = 264.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2r6ig")
+flat = true
+
+[node name="bounds" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bounds"]
+position = Vector2(559, 120)
+shape = SubResource("RectangleShape2D_4btym")
+one_way_collision = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="bounds"]
+position = Vector2(568, 664)
+shape = SubResource("RectangleShape2D_x002w")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="bounds"]
+position = Vector2(-16, 176)
+shape = SubResource("RectangleShape2D_bgmly")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="bounds"]
+position = Vector2(1168, 168)
+shape = SubResource("RectangleShape2D_bgmly")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="bounds"]
+shape = SubResource("SegmentShape2D_ini00")
+one_way_collision = true
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="bounds"]
+shape = SubResource("SegmentShape2D_cq30u")
+one_way_collision = true
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="bounds"]
+shape = SubResource("SegmentShape2D_ievhf")
+one_way_collision = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="bounds"]
+position = Vector2(565.5, -24)
+shape = SubResource("RectangleShape2D_m6poo")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="bounds"]
+position = Vector2(504, 248)
+shape = SubResource("RectangleShape2D_p83dm")
+one_way_collision = true
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="bounds"]
+position = Vector2(720, 248)
+shape = SubResource("RectangleShape2D_p83dm")
+one_way_collision = true
+
+[node name="BALL?" parent="." instance=ExtResource("4_dxmp8")]
+
+[connection signal="pressed" from="START" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="OPTIONS" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="QUIT" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="change_color" to="." method="_on_change_color_pressed"]

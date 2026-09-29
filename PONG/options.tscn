@@ -1,0 +1,222 @@
+[gd_scene load_steps=12 format=3 uid="uid://b5xvr88t0vlxj"]
+
+[ext_resource type="Script" path="res://options.gd" id="1_50at6"]
+[ext_resource type="FontFile" uid="uid://cmdji8245y4ot" path="res://FFFFORWA.TTF" id="2_k1dk7"]
+[ext_resource type="PackedScene" uid="uid://dbvk6kxypphy" path="res://crt_vfx.tscn" id="3_260lu"]
+[ext_resource type="PackedScene" uid="uid://dn6ksa0681be7" path="res://ball_imposter.tscn" id="4_ghegt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0pobx"]
+size = Vector2(133, 58)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u54n3"]
+size = Vector2(1576, 505)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_oedh1"]
+a = Vector2(64, 584)
+b = Vector2(200, 584)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s0qd0"]
+size = Vector2(82, 690)
+
+[sub_resource type="Animation" id="Animation_qv0f3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../skill issue:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-392, 392)]
+}
+
+[sub_resource type="Animation" id="Animation_cu8yh"]
+resource_name = "move"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../skill issue:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(0.450625, 3.73213, 1),
+"update": 0,
+"values": [Vector2(-392, 392), Vector2(456, 392), Vector2(1208, 392)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rsjf2"]
+_data = {
+"RESET": SubResource("Animation_qv0f3"),
+"move": SubResource("Animation_cu8yh")
+}
+
+[node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_50at6")
+
+[node name="background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.252889, 3.00938e-05, 0.239969, 1)
+
+[node name="CRT_vfx" parent="." instance=ExtResource("3_260lu")]
+
+[node name="easy" type="Button" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 126.0
+offset_bottom = 94.0
+scale = Vector2(2.77867, 2.77867)
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_k1dk7")
+text = "EASY"
+
+[node name="normal" type="Button" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 168.0
+offset_right = 162.0
+offset_bottom = 198.0
+scale = Vector2(2.75379, 2.75379)
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_k1dk7")
+text = "NORMAL"
+
+[node name="impossible" type="Button" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 272.0
+offset_right = 128.0
+offset_bottom = 302.0
+scale = Vector2(3.04307, 3.04307)
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_k1dk7")
+text = "HARD"
+
+[node name="fullscreen" type="Label" parent="."]
+layout_mode = 0
+offset_left = 552.0
+offset_top = 80.0
+offset_right = 682.0
+offset_bottom = 103.0
+scale = Vector2(2.16631, 2.16631)
+theme_override_fonts/font = ExtResource("2_k1dk7")
+text = "FULLSCREEN"
+
+[node name="CheckButton" type="CheckButton" parent="fullscreen"]
+layout_mode = 0
+offset_left = 140.331
+offset_top = -11.0787
+offset_right = 184.331
+offset_bottom = 12.9213
+scale = Vector2(1.49202, 1.49202)
+focus_mode = 0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 552.0
+offset_top = 176.0
+offset_right = 682.0
+offset_bottom = 198.0
+scale = Vector2(2.14008, 2.14008)
+theme_override_fonts/font = ExtResource("2_k1dk7")
+text = "CRT SHADER"
+
+[node name="CheckButton2" type="CheckButton" parent="Label2"]
+layout_mode = 0
+offset_left = 142.051
+offset_top = -11.2145
+offset_right = 186.051
+offset_bottom = 12.7855
+scale = Vector2(1.45608, 1.45608)
+focus_mode = 0
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_layer = 4
+collision_mask = 7
+
+[node name="Back" type="Button" parent="RigidBody2D"]
+offset_left = 64.0
+offset_top = 512.0
+offset_right = 128.0
+offset_bottom = 542.0
+scale = Vector2(2.16658, 2.16658)
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_k1dk7")
+text = "BACK"
+icon_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(133.5, 544)
+shape = SubResource("RectangleShape2D_0pobx")
+
+[node name="bounds" type="StaticBody2D" parent="."]
+
+[node name="floor" type="CollisionShape2D" parent="bounds"]
+position = Vector2(696, 904)
+shape = SubResource("RectangleShape2D_u54n3")
+
+[node name="floor2" type="CollisionShape2D" parent="bounds"]
+position = Vector2(704, -248)
+shape = SubResource("RectangleShape2D_u54n3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bounds"]
+position = Vector2(0, -8)
+shape = SubResource("SegmentShape2D_oedh1")
+one_way_collision = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="bounds"]
+position = Vector2(-40, 336)
+shape = SubResource("RectangleShape2D_s0qd0")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="bounds"]
+position = Vector2(1528, 376)
+shape = SubResource("RectangleShape2D_s0qd0")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="bounds"]
+position = Vector2(1192, 128)
+shape = SubResource("RectangleShape2D_s0qd0")
+
+[node name="BALL?" parent="." instance=ExtResource("4_ghegt")]
+position = Vector2(1432, 504)
+collision_layer = 2
+collision_mask = 3
+
+[node name="skill issue" type="Label" parent="."]
+layout_mode = 0
+offset_left = -392.0
+offset_top = 392.0
+offset_right = -303.0
+offset_bottom = 415.0
+scale = Vector2(3.22742, 3.22742)
+text = "SKILL ISSUE"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="skill issue"]
+root_node = NodePath("../../background")
+libraries = {
+"": SubResource("AnimationLibrary_rsjf2")
+}
+
+[connection signal="pressed" from="easy" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="normal" to="." method="_on_normal_pressed"]
+[connection signal="pressed" from="impossible" to="." method="_on_impossible_pressed"]
+[connection signal="toggled" from="fullscreen/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="toggled" from="Label2/CheckButton2" to="." method="_on_check_button_2_toggled"]
+[connection signal="pressed" from="RigidBody2D/Back" to="." method="_on_button_pressed"]

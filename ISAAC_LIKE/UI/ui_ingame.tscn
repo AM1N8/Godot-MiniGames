@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://bl6p1es67o2o1"]
+
+[ext_resource type="Script" uid="uid://41viwpbk7tkk" path="res://UI/ui_ingame.gd" id="1_kbia2"]
+[ext_resource type="FontFile" uid="uid://osqqv6cqigdm" path="res://assets/FFFFORWA.TTF" id="1_t5u4m"]
+
+[node name="UI_ingame" type="CanvasLayer"]
+script = ExtResource("1_kbia2")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 4.0
+offset_right = 37.0
+offset_bottom = 14.0
+color = Color(0, 0, 0, 0.6)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 52.0
+offset_bottom = 26.0
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("1_t5u4m")
+text = "HP x"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 30.0
+offset_top = 3.0
+offset_right = 76.0
+offset_bottom = 26.0
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("1_t5u4m")
+text = "3"

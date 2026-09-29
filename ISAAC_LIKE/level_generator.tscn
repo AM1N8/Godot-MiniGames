@@ -1,0 +1,31 @@
+[gd_scene load_steps=8 format=3 uid="uid://cek5rgsnt4yqh"]
+
+[ext_resource type="Script" uid="uid://dqvhmkvxcll0h" path="res://level_generator.gd" id="1_nwatn"]
+[ext_resource type="PackedScene" uid="uid://den14cfn7g0gf" path="res://ROOMS/starting_room.tscn" id="2_wipnn"]
+[ext_resource type="PackedScene" uid="uid://6sktvq60ub5m" path="res://ROOMS/normal_room_1.tscn" id="3_38vbc"]
+[ext_resource type="PackedScene" uid="uid://cyqk80ayev3fb" path="res://assets/crt_shader.tscn" id="4_qpnla"]
+[ext_resource type="PackedScene" uid="uid://cj5whl83tnyq5" path="res://ROOMS/treasure_room.tscn" id="4_s7mwr"]
+[ext_resource type="PackedScene" uid="uid://djk604bbb8ecr" path="res://ROOMS/boss_room.tscn" id="5_fh3mp"]
+[ext_resource type="PackedScene" uid="uid://bl6p1es67o2o1" path="res://UI/ui_ingame.tscn" id="7_7xdvp"]
+
+[node name="LevelGenerator" type="Node2D"]
+position = Vector2(0, 1)
+script = ExtResource("1_nwatn")
+start_room = ExtResource("2_wipnn")
+normal_rooms = Array[PackedScene]([ExtResource("3_38vbc")])
+treasure_rooms = Array[PackedScene]([ExtResource("4_s7mwr")])
+boss_rooms = Array[PackedScene]([ExtResource("5_fh3mp")])
+
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+show_behind_parent = true
+offset_left = -9319.0
+offset_top = -8997.0
+offset_right = 10031.0
+offset_bottom = 4433.0
+color = Color(0, 0, 0, 1)
+
+[node name="UI_ingame" parent="." instance=ExtResource("7_7xdvp")]
+
+[node name="CRT_SHADER" parent="." instance=ExtResource("4_qpnla")]
