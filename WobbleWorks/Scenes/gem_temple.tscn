@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://d2gemtemple001"]
+
+[ext_resource type="Script" path="res://Scripts/gem_temple_builder.gd" id="1_builder"]
+
+[node name="GemTemple" type="Node3D"]
+script = ExtResource("1_builder")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]

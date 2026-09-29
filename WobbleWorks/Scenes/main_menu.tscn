@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_menu"]
+
+[sub_resource type="ProceduralSkyMaterial" id="SkyMat_menu"]
+sky_top_color = Color(0.04, 0.04, 0.12, 1.0)
+sky_horizon_color = Color(0.08, 0.06, 0.16, 1.0)
+ground_bottom_color = Color(0.02, 0.02, 0.04, 1.0)
+ground_horizon_color = Color(0.08, 0.06, 0.16, 1.0)
+
+[sub_resource type="Sky" id="Sky_menu"]
+sky_material = SubResource("SkyMat_menu")
+
+[sub_resource type="Environment" id="Env_menu"]
+background_mode = 2
+sky = SubResource("Sky_menu")
+ambient_light_source = 2
+ambient_light_color = Color(0.12, 0.1, 0.18, 1.0)
+ambient_light_energy = 0.5
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.4
+
+[sub_resource type="StandardMaterial3D" id="Mat_floor"]
+albedo_color = Color(0.05, 0.05, 0.08, 1.0)
+roughness = 0.9
+
+[node name="MainMenu" type="Node3D"]
+script = ExtResource("1_menu")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.99, 0.14, 0, -0.14, 0.99, 0.0, 1.3, 3.5)
+fov = 50.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_menu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, -0.354, 0.354, 0, 0.707, 0.707, -0.5, -0.612, 0.612, 0, 5, 0)
+light_color = Color(1.0, 0.92, 0.78, 1.0)
+light_energy = 1.4
+shadow_enabled = true
+
+[node name="AccentLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.0, 2.0)
+light_color = Color(1.0, 0.55, 0.15, 1.0)
+light_energy = 2.0
+omni_range = 5.0
+omni_attenuation = 1.5
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+size = Vector3(20, 0.5, 20)
+material = SubResource("Mat_floor")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]

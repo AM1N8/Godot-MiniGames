@@ -1,0 +1,592 @@
+[gd_scene format=3 uid="uid://bwfbnvkr1oku7"]
+
+[ext_resource type="Texture2D" uid="uid://gs6n3sg4t772" path="res://Assets/godot-prototype-texture/PNG/checker_black_512x512.png" id="1_check_black"]
+[ext_resource type="PackedScene" uid="uid://cd70x3de3pbl4" path="res://Scenes/character.tscn" id="2_char"]
+[ext_resource type="Material" uid="uid://byhoa2glvt4rq" path="res://Resources/sky.tres" id="3_sky"]
+[ext_resource type="Texture2D" uid="uid://cd6i4dnd6q8i7" path="res://Assets/godot-prototype-texture/PNG/checker_orange_512x512.png" id="4_check_orange"]
+[ext_resource type="Texture2D" uid="uid://66p86fq7gbf6" path="res://Assets/godot-prototype-texture/PNG/grid_blue_512x512.png" id="5_grid_blue"]
+[ext_resource type="Texture2D" uid="uid://dc5kiekdkk2lc" path="res://Assets/godot-prototype-texture/PNG/checker_red_512x512.png" id="6_check_red"]
+[ext_resource type="Texture2D" uid="uid://hnct2xar5mxy" path="res://Assets/godot-prototype-texture/PNG/grid_lime_512x512.png" id="7_grid_lime"]
+[ext_resource type="Texture2D" uid="uid://c2e3lfgiwb8ka" path="res://Assets/godot-prototype-texture/PNG/grid_white_512x512.png" id="8_grid_white"]
+[ext_resource type="Texture2D" uid="uid://boc1ne0bdkb24" path="res://Assets/godot-prototype-texture/PNG/checker_cyan_512x512.png" id="9_check_cyan"]
+[ext_resource type="Texture2D" uid="uid://dy7laxlhpw63j" path="res://Assets/godot-prototype-texture/PNG/checker_yellow_512x512.png" id="10_check_yellow"]
+[ext_resource type="Script" uid="uid://b0xyu2gekfxpe" path="res://Scripts/pressure_plate.gd" id="11_plate"]
+[ext_resource type="Script" uid="uid://citljsognwkx4" path="res://Scripts/sliding_door.gd" id="12_door"]
+[ext_resource type="Script" uid="uid://vmkgy7m8kc4d" path="res://Scripts/moving_platform.gd" id="13_plat"]
+[ext_resource type="Script" uid="uid://cii8arq43q673" path="res://Scripts/victory_portal.gd" id="14_portal"]
+
+[sub_resource type="Sky" id="Sky_khtaw"]
+sky_material = ExtResource("3_sky")
+
+[sub_resource type="Environment" id="Environment_md4pe"]
+background_mode = 2
+sky = SubResource("Sky_khtaw")
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.8
+glow_bloom = 0.2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud"]
+bg_color = Color(0.08, 0.08, 0.12, 0.75)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.4, 0.6, 0.4)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
+albedo_texture = ExtResource("1_check_black")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_walls"]
+albedo_texture = ExtResource("5_grid_blue")
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_interactive"]
+albedo_texture = ExtResource("4_check_orange")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_door"]
+size = Vector3(6.2, 5, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_door"]
+size = Vector3(6.2, 5, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_button"]
+size = Vector3(1.8, 0.2, 1.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_plate"]
+albedo_texture = ExtResource("6_check_red")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_plate_area"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_medium"]
+friction = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_crate"]
+size = Vector3(1.6, 1.6, 1.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yellow_crate"]
+albedo_texture = ExtResource("10_check_yellow")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_crate"]
+size = Vector3(1.6, 1.6, 1.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_plank"]
+size = Vector3(1.8, 0.2, 8.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_plank"]
+size = Vector3(1.8, 0.2, 8.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_moving_platform"]
+size = Vector3(4, 0.5, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_grab_bar"]
+size = Vector3(3, 0.3, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grab_bar"]
+albedo_texture = ExtResource("8_grid_white")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_grab_bar"]
+size = Vector3(3, 0.3, 0.3)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_heavy"]
+friction = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_plug"]
+size = Vector3(4.4, 2.6, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_plug"]
+size = Vector3(4.4, 2.6, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_handle"]
+size = Vector3(0.3, 0.3, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_plank"]
+albedo_texture = ExtResource("7_grid_lime")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_handle"]
+size = Vector3(0.3, 0.3, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_goal_altar"]
+albedo_texture = ExtResource("9_check_cyan")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_portal"]
+height = 3.0
+radius = 2.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_beam"]
+top_radius = 2.0
+bottom_radius = 2.0
+height = 6.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_victory_beam"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+albedo_color = Color(0.1, 0.7, 1, 0.35)
+
+[node name="World" type="Node3D" unique_id=41881211]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1900996281]
+transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 15, 0)
+shadow_enabled = true
+shadow_bias = 0.04
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1261360424]
+environment = SubResource("Environment_md4pe")
+
+[node name="Character" parent="." unique_id=67893108 instance=ExtResource("2_char")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 10)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=231427288]
+
+[node name="ControlsPanel" type="PanelContainer" parent="CanvasLayer" unique_id=1917472325]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 260.0
+offset_bottom = 190.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud")
+
+[node name="Margin" type="MarginContainer" parent="CanvasLayer/ControlsPanel" unique_id=544788991]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Label" type="Label" parent="CanvasLayer/ControlsPanel/Margin" unique_id=1968990743]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
+theme_override_font_sizes/font_size = 14
+text = "CONTROLS:
+• Move: W / A / S / D
+• Jump: Space
+• Grab Left: Left Click
+• Grab Right: Right Click
+• Toggle Ragdoll: R
+• Free Mouse: Esc"
+
+[node name="Level" type="Node3D" parent="." unique_id=1429993401]
+
+[node name="TutorialZone" type="Node3D" parent="Level" unique_id=205441706]
+
+[node name="Ground" type="CSGBox3D" parent="Level/TutorialZone" unique_id=1446983119]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(12, 1, 30)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="WallLeft" type="CSGBox3D" parent="Level/TutorialZone" unique_id=1304291785]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 2.5, 0)
+use_collision = true
+size = Vector3(1, 6, 30)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="WallRight" type="CSGBox3D" parent="Level/TutorialZone" unique_id=2075970474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 2.5, 0)
+use_collision = true
+size = Vector3(1, 6, 30)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="Hurdle" type="CSGBox3D" parent="Level/TutorialZone" unique_id=1148957390]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2)
+use_collision = true
+size = Vector3(12, 1, 1)
+material = SubResource("StandardMaterial3D_interactive")
+
+[node name="LedgeClimb" type="CSGBox3D" parent="Level/TutorialZone" unique_id=620722760]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -12)
+use_collision = true
+size = Vector3(12, 3, 6)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="Area1ButtonPuzzle" type="Node3D" parent="Level" unique_id=1681649075]
+
+[node name="Ground" type="CSGBox3D" parent="Level/Area1ButtonPuzzle" unique_id=1761186842]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -23.5)
+use_collision = true
+size = Vector3(12, 1, 17)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="WallLeft" type="CSGBox3D" parent="Level/Area1ButtonPuzzle" unique_id=1298751395]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 5, -23.5)
+use_collision = true
+size = Vector3(1, 5, 17)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="WallRight" type="CSGBox3D" parent="Level/Area1ButtonPuzzle" unique_id=115461904]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 5, -23.5)
+use_collision = true
+size = Vector3(1, 5, 17)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="GateWallLeft" type="CSGBox3D" parent="Level/Area1ButtonPuzzle" unique_id=1142229639]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 6, -31.5)
+use_collision = true
+size = Vector3(3, 7, 1)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="GateWallRight" type="CSGBox3D" parent="Level/Area1ButtonPuzzle" unique_id=991664964]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 6, -31.5)
+use_collision = true
+size = Vector3(3, 7, 1)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="GateWallTop" type="CSGBox3D" parent="Level/Area1ButtonPuzzle" unique_id=1902096401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5, -31.5)
+use_collision = true
+size = Vector3(6, 2, 1)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="Door" type="AnimatableBody3D" parent="Level/Area1ButtonPuzzle" unique_id=1782851877]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -31.5)
+script = ExtResource("12_door")
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/Area1ButtonPuzzle/Door" unique_id=1085420279]
+mesh = SubResource("BoxMesh_door")
+surface_material_override/0 = SubResource("StandardMaterial3D_interactive")
+
+[node name="Collision" type="CollisionShape3D" parent="Level/Area1ButtonPuzzle/Door" unique_id=2004010708]
+shape = SubResource("BoxShape3D_door")
+
+[node name="PressurePlate" type="Area3D" parent="Level/Area1ButtonPuzzle" unique_id=480882652]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2.5, -22)
+script = ExtResource("11_plate")
+target_door = NodePath("../Door")
+
+[node name="BaseMesh" type="CSGBox3D" parent="Level/Area1ButtonPuzzle/PressurePlate" unique_id=443347410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+use_collision = true
+size = Vector3(2, 0.1, 2)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="ButtonMesh" type="MeshInstance3D" parent="Level/Area1ButtonPuzzle/PressurePlate" unique_id=2062786229]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+mesh = SubResource("BoxMesh_button")
+surface_material_override/0 = SubResource("StandardMaterial3D_plate")
+
+[node name="Collision" type="CollisionShape3D" parent="Level/Area1ButtonPuzzle/PressurePlate" unique_id=1525779289]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_plate_area")
+
+[node name="Crate" type="RigidBody3D" parent="Level/Area1ButtonPuzzle" unique_id=520217345]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 3.5, -22)
+mass = 10.0
+physics_material_override = SubResource("PhysicsMaterial_medium")
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/Area1ButtonPuzzle/Crate" unique_id=107594156]
+mesh = SubResource("BoxMesh_crate")
+surface_material_override/0 = SubResource("StandardMaterial3D_yellow_crate")
+
+[node name="Collision" type="CollisionShape3D" parent="Level/Area1ButtonPuzzle/Crate" unique_id=509379008]
+shape = SubResource("BoxShape3D_crate")
+
+[node name="Area2PlankGap" type="Node3D" parent="Level" unique_id=1420978902]
+
+[node name="GroundStart" type="CSGBox3D" parent="Level/Area2PlankGap" unique_id=1649336641]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -37.5)
+use_collision = true
+size = Vector3(12, 1, 11)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="GroundLand" type="CSGBox3D" parent="Level/Area2PlankGap" unique_id=1007686142]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -54)
+use_collision = true
+size = Vector3(12, 1, 10)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="WallLeftStart" type="CSGBox3D" parent="Level/Area2PlankGap" unique_id=974814260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 5, -37.5)
+use_collision = true
+size = Vector3(1, 5, 11)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="WallRightStart" type="CSGBox3D" parent="Level/Area2PlankGap" unique_id=625953756]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 5, -37.5)
+use_collision = true
+size = Vector3(1, 5, 11)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="WallLeftLand" type="CSGBox3D" parent="Level/Area2PlankGap" unique_id=1198849542]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 5, -54)
+use_collision = true
+size = Vector3(1, 5, 10)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="WallRightLand" type="CSGBox3D" parent="Level/Area2PlankGap" unique_id=1350106441]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 5, -54)
+use_collision = true
+size = Vector3(1, 5, 10)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="PitFloor" type="CSGBox3D" parent="Level/Area2PlankGap" unique_id=1567674689]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.5, -45)
+use_collision = true
+size = Vector3(20, 1, 30)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="RecoveryRamp" type="CSGBox3D" parent="Level/Area2PlankGap" unique_id=1314531601]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 4.5, -1.25, -36.5)
+use_collision = true
+size = Vector3(3, 1, 14)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="SeesawBase" type="CSGBox3D" parent="Level/Area2PlankGap" unique_id=805288550]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42782652, -46)
+use_collision = true
+size = Vector3(1.8, 1.5, 0.4)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="SeesawPlank" type="RigidBody3D" parent="Level/Area2PlankGap" unique_id=1928500108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -46)
+mass = 6.0
+physics_material_override = SubResource("PhysicsMaterial_medium")
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/Area2PlankGap/SeesawPlank" unique_id=818865294]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.31745696, 0)
+mesh = SubResource("BoxMesh_plank")
+surface_material_override/0 = SubResource("StandardMaterial3D_interactive")
+
+[node name="Collision" type="CollisionShape3D" parent="Level/Area2PlankGap/SeesawPlank" unique_id=430791547]
+shape = SubResource("BoxShape3D_plank")
+
+[node name="SeesawJoint" type="PinJoint3D" parent="Level/Area2PlankGap" unique_id=43925984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -46)
+node_b = NodePath("../SeesawPlank")
+
+[node name="Area3TimingSwing" type="Node3D" parent="Level" unique_id=515974173]
+
+[node name="GroundStart" type="CSGBox3D" parent="Level/Area3TimingSwing" unique_id=1823478420]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -63.5)
+use_collision = true
+size = Vector3(12, 1, 9)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="IntermediateIsland" type="CSGBox3D" parent="Level/Area3TimingSwing" unique_id=1037124078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -83.5)
+use_collision = true
+size = Vector3(5, 1, 5)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="GroundLand" type="CSGBox3D" parent="Level/Area3TimingSwing" unique_id=829160619]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -98)
+use_collision = true
+size = Vector3(12, 1, 10)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="WallLeftStart" type="CSGBox3D" parent="Level/Area3TimingSwing" unique_id=1046708116]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 5, -63.5)
+use_collision = true
+size = Vector3(1, 5, 9)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="WallRightStart" type="CSGBox3D" parent="Level/Area3TimingSwing" unique_id=119693774]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 5, -63.5)
+use_collision = true
+size = Vector3(1, 5, 9)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="WallLeftLand" type="CSGBox3D" parent="Level/Area3TimingSwing" unique_id=1443277334]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 5, -98)
+use_collision = true
+size = Vector3(1, 5, 10)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="WallRightLand" type="CSGBox3D" parent="Level/Area3TimingSwing" unique_id=315113710]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 5, -98)
+use_collision = true
+size = Vector3(1, 5, 10)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="AbyssFloor" type="CSGBox3D" parent="Level/Area3TimingSwing" unique_id=2137551788]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.5, -80)
+use_collision = true
+size = Vector3(20, 1, 44)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="RecoveryRampStart" type="CSGBox3D" parent="Level/Area3TimingSwing" unique_id=104961474]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 4.5, -1.25, -62.5)
+use_collision = true
+size = Vector3(3, 1, 14)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="RecoveryRampIsland" type="CSGBox3D" parent="Level/Area3TimingSwing" unique_id=1736958038]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 4.5, -1.25, -80.5)
+use_collision = true
+size = Vector3(3, 1, 14)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="MovingPlatform" type="AnimatableBody3D" parent="Level/Area3TimingSwing" unique_id=126446391]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -71)
+script = ExtResource("13_plat")
+travel_offset = Vector3(0, 0, -8)
+
+[node name="Mesh" type="CSGBox3D" parent="Level/Area3TimingSwing/MovingPlatform" unique_id=60795872]
+size = Vector3(4, 0.5, 4)
+material = SubResource("StandardMaterial3D_interactive")
+
+[node name="Collision" type="CollisionShape3D" parent="Level/Area3TimingSwing/MovingPlatform" unique_id=60795873]
+shape = SubResource("BoxShape3D_moving_platform")
+
+[node name="TrapezeCeiling" type="CSGBox3D" parent="Level/Area3TimingSwing" unique_id=1936548112]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.5, -89.5)
+use_collision = true
+size = Vector3(2, 1, 2)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="GrabBar" type="RigidBody3D" parent="Level/Area3TimingSwing" unique_id=1919741492]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -89.5)
+mass = 8.0
+linear_damp = 0.1
+angular_damp = 0.1
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/Area3TimingSwing/GrabBar" unique_id=1748042321]
+mesh = SubResource("BoxMesh_grab_bar")
+surface_material_override/0 = SubResource("StandardMaterial3D_grab_bar")
+
+[node name="Collision" type="CollisionShape3D" parent="Level/Area3TimingSwing/GrabBar" unique_id=1534422980]
+shape = SubResource("BoxShape3D_grab_bar")
+
+[node name="SwingJoint" type="PinJoint3D" parent="Level/Area3TimingSwing" unique_id=81014764]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11, -89.5)
+node_b = NodePath("../GrabBar")
+
+[node name="Area4VaultPlug" type="Node3D" parent="Level" unique_id=153081985]
+
+[node name="Ground" type="CSGBox3D" parent="Level/Area4VaultPlug" unique_id=2053048937]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -107.5)
+use_collision = true
+size = Vector3(12, 1, 9)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="WallLeftDoorway" type="CSGBox3D" parent="Level/Area4VaultPlug" unique_id=11525807]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6, 5, -105)
+use_collision = true
+size = Vector3(4, 9, 2)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="WallRightDoorway" type="CSGBox3D" parent="Level/Area4VaultPlug" unique_id=216850588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 5, -105)
+use_collision = true
+size = Vector3(4, 9, 2)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="WallTopDoorway" type="CSGBox3D" parent="Level/Area4VaultPlug" unique_id=2078855980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.557373, -105)
+use_collision = true
+size = Vector3(5.2, 3.885254, 2)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="VaultPlug" type="RigidBody3D" parent="Level/Area4VaultPlug" unique_id=331465419]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -105)
+mass = 15.0
+physics_material_override = SubResource("PhysicsMaterial_heavy")
+
+[node name="MainMesh" type="MeshInstance3D" parent="Level/Area4VaultPlug/VaultPlug" unique_id=1448787852]
+mesh = SubResource("BoxMesh_plug")
+surface_material_override/0 = SubResource("StandardMaterial3D_interactive")
+
+[node name="MainCollision" type="CollisionShape3D" parent="Level/Area4VaultPlug/VaultPlug" unique_id=157371365]
+shape = SubResource("BoxShape3D_plug")
+
+[node name="LeftHandleMesh" type="MeshInstance3D" parent="Level/Area4VaultPlug/VaultPlug" unique_id=1665524258]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 1.2)
+mesh = SubResource("BoxMesh_handle")
+surface_material_override/0 = SubResource("StandardMaterial3D_plank")
+
+[node name="LeftHandleCollision" type="CollisionShape3D" parent="Level/Area4VaultPlug/VaultPlug" unique_id=1945539517]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 1.2)
+shape = SubResource("BoxShape3D_handle")
+
+[node name="RightHandleMesh" type="MeshInstance3D" parent="Level/Area4VaultPlug/VaultPlug" unique_id=313437084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -0.5, 1.2)
+mesh = SubResource("BoxMesh_handle")
+surface_material_override/0 = SubResource("StandardMaterial3D_plank")
+
+[node name="RightHandleCollision" type="CollisionShape3D" parent="Level/Area4VaultPlug/VaultPlug" unique_id=2067594731]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -0.5, 1.2)
+shape = SubResource("BoxShape3D_handle")
+
+[node name="Area5ZenithSanctuary" type="Node3D" parent="Level" unique_id=1636648715]
+
+[node name="Ground" type="CSGBox3D" parent="Level/Area5ZenithSanctuary" unique_id=43394725]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -118)
+use_collision = true
+size = Vector3(12, 1, 12)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="WallLeft" type="CSGBox3D" parent="Level/Area5ZenithSanctuary" unique_id=1736751557]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 5, -118)
+use_collision = true
+size = Vector3(1, 5, 12)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="WallRight" type="CSGBox3D" parent="Level/Area5ZenithSanctuary" unique_id=267639988]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 5, -118)
+use_collision = true
+size = Vector3(1, 5, 12)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="Step1" type="CSGBox3D" parent="Level/Area5ZenithSanctuary" unique_id=737127923]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.5, -125)
+use_collision = true
+size = Vector3(3, 2, 3)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="Step2" type="CSGBox3D" parent="Level/Area5ZenithSanctuary" unique_id=778760654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -125)
+use_collision = true
+size = Vector3(3, 2, 3)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="Step3" type="CSGBox3D" parent="Level/Area5ZenithSanctuary" unique_id=2077225422]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 6.5, -125)
+use_collision = true
+size = Vector3(3, 2, 3)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="GoalPlatform" type="CSGBox3D" parent="Level/Area5ZenithSanctuary" unique_id=691453509]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, -132)
+use_collision = true
+size = Vector3(10, 1, 10)
+material = SubResource("StandardMaterial3D_goal_altar")
+
+[node name="GoalPortal" type="Area3D" parent="Level/Area5ZenithSanctuary" unique_id=561211481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5, -132)
+script = ExtResource("14_portal")
+
+[node name="Collision" type="CollisionShape3D" parent="Level/Area5ZenithSanctuary/GoalPortal" unique_id=1707710790]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CylinderShape3D_portal")
+
+[node name="LightBeam" type="MeshInstance3D" parent="Level/Area5ZenithSanctuary/GoalPortal" unique_id=676794086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+mesh = SubResource("CylinderMesh_beam")
+surface_material_override/0 = SubResource("StandardMaterial3D_victory_beam")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Level/Area5ZenithSanctuary/GoalPortal" unique_id=1658568977]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+light_color = Color(0.2, 0.8, 1, 1)
+light_energy = 5.0
+omni_range = 10.0
